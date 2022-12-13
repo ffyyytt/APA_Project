@@ -31,6 +31,7 @@ public:
    * l'intervalle [0 .. (max-1)].
    */
   Permuteur(int max);
+  Permuteur(int max, int method); // 0: Dictionary, 1: HeapRecursive, 2: Heap
 
   /*!
    * Libere les ressources utilisees par ce permuteur.
@@ -41,9 +42,11 @@ public:
    * Retourne l'entier suivant.
    */
   int suivant();
+  int getLengthPerm();
   void setIndices(int *);
 
-  void genPermutHeap();
+  void genPermutHeapRecursive(int k, int &permutationIndex);
+  void genPermutHeap(int k, int &permutationIndex);
   void genPermutDictionary();
   
   void assignPermutation(int permutationIndex);
