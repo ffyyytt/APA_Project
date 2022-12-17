@@ -5,6 +5,7 @@
 #include "descripteur_tache.h"
 #include "raccordeur.h"
 #include "raccordeur_simple.h"
+#include "raccordeur_recursif_naif.h"
 
 
 
@@ -20,10 +21,10 @@ int main(int argc, char **argv){
     // valeurs par defaut
     algo = 0;
     tache.fichierImage = "gravier.tif";
-    tache.racineNombreBlocs = 3;
-    tache.recouvrement = 20;
-    tache.largeurSortie = 600;
-    tache.hauteurSortie = 600;
+    tache.racineNombreBlocs = 8; //3
+    tache.recouvrement = 3; //20
+    tache.largeurSortie = 256; //600
+    tache.hauteurSortie = 256; //600
     
     if (!strcmp(argv[argc-1], "--help")) {
         fprintf(stderr, "Accepte jusqu'a 6 parametres :\n");
@@ -70,7 +71,7 @@ int main(int argc, char **argv){
             tache.raccordeur = new RaccordeurSimple();
             break;
         case 3:
-            //tache.raccordeur = new RaccordeurRecursifNaif();
+            tache.raccordeur = new RaccordeurRecursifNaif();
             break;
         case 4:
           
