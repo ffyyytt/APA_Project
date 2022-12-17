@@ -1,6 +1,7 @@
 #ifndef _RACCORDEUR_H
 #define	_RACCORDEUR_H
 
+#include "iostream" // for debug
 #include "matrix2d.h"
 
 /*!

@@ -10,7 +10,6 @@
 #include "raccordeur_iteratif.h"
 
 
-
 int main(int argc, char **argv){
 
     srand((unsigned)time(NULL)); // Pour que le random() soit different d'une execution sur l'autre
@@ -23,10 +22,10 @@ int main(int argc, char **argv){
     // valeurs par defaut
     algo = 0;
     tache.fichierImage = "gravier.tif";
-    tache.racineNombreBlocs = 16; //3
-    tache.recouvrement = 3; //20
-    tache.largeurSortie = 64; //600
-    tache.hauteurSortie = 64; //600
+    tache.racineNombreBlocs = 3; //3
+    tache.recouvrement = 20; //20
+    tache.largeurSortie = 600; //600
+    tache.hauteurSortie = 600; //600
     
     if (!strcmp(argv[argc-1], "--help")) {
         fprintf(stderr, "Accepte jusqu'a 6 parametres :\n");

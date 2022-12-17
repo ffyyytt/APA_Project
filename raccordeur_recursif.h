@@ -28,7 +28,7 @@ class RaccordeurRecursif: public Raccordeur {
     * Start from (x, y) and end when recursive y = 0.
     * RaccordeurRecursif(\see{RaccordeurRecursif#_calculerRaccord})
     */
-    int _calculerRaccord(MatInt2* distances, int* coupe, int x, int y, MatInt2* coutTable); //fuction pour recursif
+    int _calculerRaccord(MatInt2* distances, int x, int y, MatInt2* coutTable); //fuction pour recursif
 };
 
 #endif	/* _RACCORDEUR_RECURSIF_H */

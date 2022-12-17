@@ -10,11 +10,21 @@ int RaccordeurRecursifNaif::calculerRaccord(MatInt2* distances, int* coupe)
         coutTemp = _calculerRaccord(distances, coupeTemp, x, distances->nLignes()-1);
         if (coutTemp < cout)
         {
-            coupe[distances->nLignes()-1] = x;
             std::copy(coupeTemp, coupeTemp+distances->nLignes(), coupe);
+            coupe[distances->nLignes()-1] = x;
             cout = coutTemp;
         }
     }
+
+    /*
+    // debug code. To check coupe same with RaccordeurIteratif and RaccordeurRecursif
+    distances->display();
+    for (int i = 0; i < distances->nLignes(); i++)
+    {
+        std::cout << coupe[i] << " ";
+    }
+    getchar();
+    */
     return cout;
 }
 
