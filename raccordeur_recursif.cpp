@@ -1,5 +1,4 @@
 #include "raccordeur_recursif.h"
-#include "iostream"
 
 int RaccordeurRecursif::calculerRaccord(MatInt2* distances, int* coupe)
 {
@@ -20,8 +19,8 @@ int RaccordeurRecursif::calculerRaccord(MatInt2* distances, int* coupe)
         coutTemp = _calculerRaccord(distances, coupeTemp, x, distances->nLignes()-1, coutTable);
         if (coutTemp < cout)
         {
-            coupe[distances->nLignes()-1] = x;
             std::copy(coupeTemp, coupeTemp+distances->nLignes(), coupe);
+            coupe[distances->nLignes()-1] = x;
             cout = coutTemp;
         }
     }

@@ -6,20 +6,16 @@
 #include "raccordeur.h"
 
 /*!
- * Raccordeur simple : il coupe au milieu et calcule le cout du raccord comme
- * etant la somme des distances sur la zone de recouvrement.
- *
- * Cette classe est une classe concrete et derive/implemente le concept de
- * Raccordeur (\see{Raccordeur}).
- */
+ * Raccordeur Recursif Naif: The minimum distance path cut.
+ * sum of the distances over cut point.
+ * (x,y) -> [(x-1,y-1); (x, y-1); (x+1,y-1)].
+ * Do with only recursive. So its took O(3^h) for every start point in first line.
+ * So totally O(w*3^h) (h = height, w = width of intersection).
+ * calculerRaccord(MatInt2* distances, int* coupe): Find the minimun cut (coupe) and return its cost.
+*/
 class RaccordeurRecursifNaif: public Raccordeur {
-
-  /*!
-   * le calcul du raccord (\see{Raccordeur#calculerRaccord}).
-   * Le code effectif se trouve dans RaccordeurSimple.cpp
-   */
   virtual int calculerRaccord(MatInt2* distances, int* coupe);
-  virtual ~RaccordeurRecursifNaif(); // destructeur
+  virtual ~RaccordeurRecursifNaif();
   private:
     int _calculerRaccord(MatInt2* distances, int* coupe, int x, int y);
 
