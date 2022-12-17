@@ -18,7 +18,7 @@ class RaccordeurRecursifNaif: public Raccordeur {
   virtual ~RaccordeurRecursifNaif();
   private:
     int _calculerRaccord(MatInt2* distances, int* coupe, int x, int y);
-
+    int _calculerRaccordMemPath(MatInt2* distances, int* coupe, int x, int y);
 };
 
 #endif	/* _RACCORDEUR_RECURSIF_NAIF_H */
