@@ -30,6 +30,15 @@ public:
   bool choisirMeilleurBloc;
 
   /*!
+   * Boolean cache fucntion bestBlockIndex
+   * Because everytime call bestBlockIndex its compare with all blocks
+   * So we crate a 2d matrix to store distance between block A and block B
+   * If exist just return distance
+   * else calculate and save to matix
+  */
+  bool cacheBestBlock;
+
+  /*!
    * Racine carre du nombre de blocs 
    */
   int racineNombreBlocs;

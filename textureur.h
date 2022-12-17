@@ -100,6 +100,11 @@ private:
 	
   // Pour l'affichage
   X11Display* screen;
+
+  //Matrix to save cout between 2 blocks
+  bool cacheBestBlock;
+  MatInt2* coutHBs;
+  MatInt2* coutGDs;
   
   // placer avec bord
   void placer_avec_bord(int b,int c,int l);

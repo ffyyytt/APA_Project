@@ -65,6 +65,7 @@ void Textureur::init(DescripteurTache& tache) {
     const char* fichier = tache.fichierImage;
     utiliserPermuteur = tache.utiliserPermuteur;
     choisirMeilleurBloc = tache.choisirMeilleurBloc;
+    cacheBestBlock = tache.cacheBestBlock;
 	
   // parametres dependants
   nb_bloc=bloc_fac*bloc_fac;  // nombre total de blocs
@@ -152,6 +153,22 @@ void Textureur::init(DescripteurTache& tache) {
   im_res = new Image_4b(res_w,res_h);
   // fenetre d'affichage pour le resultat
   screen = new X11Display(res_w,res_h,"Image resultat");
+
+  if (cacheBestBlock)
+  {
+    fprintf(stdout,"Cach best block\n");
+    coutHBs = new MatInt2(nb_bloc, nb_bloc);
+    coutGDs = new MatInt2(nb_bloc, nb_bloc);
+
+    for (int i = 0; i < nb_bloc; i++)
+    {
+        for (int j = 0; j < nb_bloc; j++)
+        {
+            coutHBs->set(i, j, -1);
+            coutGDs->set(i, j, -1);
+        }
+    }
+  }
 
 }
 //======================================== 
@@ -383,21 +400,68 @@ int Textureur::bestBlockIndex(Raccordeur* raccordeur, int vg, int vh) {
     int *coupehb = new int[bloc_w];
     
     for (int i=0; i<nb_bloc; i++) {
-        int cout;
+        int cout, coutHB, coutGD;
         switch (voisinage) {
             case 0: {
-                cout= Coupe_HB(raccordeur, &table_blocs[vh], &table_blocs[i], coupehb) +
-                        Coupe_GD(raccordeur, &table_blocs[vg], &table_blocs[i], coupegd);
+                if (cacheBestBlock)
+                {
+                    if (coutHBs->get(vh, i) != -1)
+                        coutHB = coutHBs->get(vh, i);
+                    else
+                    {
+                        coutHB = Coupe_HB(raccordeur, &table_blocs[vh], &table_blocs[i], coupehb);
+                        coutHBs->set(vh, i, coutHB);
+                    }
+                    
+                    if (coutGDs->get(vg, i) != -1)
+                        coutGD = coutGDs->get(vg, i);
+                    else
+                    {
+                        coutGD = Coupe_GD(raccordeur, &table_blocs[vg], &table_blocs[i], coupehb);
+                        coutGDs->set(vg, i, coutGD);
+                    }
+
+                }
+                else
+                {
+                    coutHB = Coupe_HB(raccordeur, &table_blocs[vh], &table_blocs[i], coupehb);
+                    coutGD = Coupe_GD(raccordeur, &table_blocs[vg], &table_blocs[i], coupehb);
+                }
+                cout= coutHB + coutGD;
                 break;
             }
             case 1:       // voisin gauche seulement
             {
-                cout = Coupe_GD(raccordeur, &table_blocs[vg], &table_blocs[i], coupegd);
+                if (cacheBestBlock)
+                {
+                    if (coutGDs->get(vg, i) != -1)
+                        cout = coutGDs->get(vg, i);
+                    else
+                    {
+                        cout = Coupe_GD(raccordeur, &table_blocs[vg], &table_blocs[i], coupegd);
+                        coutGDs->set(vg, i, cout);
+                    }
+                        
+                }
+                else
+                    cout = Coupe_GD(raccordeur, &table_blocs[vg], &table_blocs[i], coupegd);
                 break;
             }
             case 2:       // voisin haut seulement
             {
-                cout = Coupe_HB(raccordeur, &table_blocs[vh], &table_blocs[i], coupehb);
+                if (cacheBestBlock)
+                {
+                    if (coutHBs->get(vh, i) != -1)
+                        cout = coutHBs->get(vh, i);
+                    else
+                    {
+                        cout = Coupe_HB(raccordeur, &table_blocs[vh], &table_blocs[i], coupegd);
+                        coutHBs->set(vh, i, cout);
+                    }
+                        
+                }
+                else
+                    cout = Coupe_HB(raccordeur, &table_blocs[vh], &table_blocs[i], coupehb);
                 break;
             }
         }  // switch

@@ -56,6 +56,7 @@ int main(int argc, char **argv){
     
     tache.choisirMeilleurBloc = true;
     tache.utiliserPermuteur = false;
+    tache.cacheBestBlock = false;
     switch(algo){
         case 0:
             // sauf si le parametre de recouvrement a ete specifie, le mettre a 1
@@ -78,6 +79,10 @@ int main(int argc, char **argv){
             tache.raccordeur = new RaccordeurRecursif();
             break;
         case 5:
+            tache.raccordeur = new RaccordeurIteratif();
+            break;
+        case 6:
+            tache.cacheBestBlock = true;
             tache.raccordeur = new RaccordeurIteratif();
             break;
         default:
