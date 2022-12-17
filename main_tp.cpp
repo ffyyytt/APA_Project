@@ -6,6 +6,7 @@
 #include "raccordeur.h"
 #include "raccordeur_simple.h"
 #include "raccordeur_recursif_naif.h"
+#include "raccordeur_recursif.h"
 
 
 
@@ -21,7 +22,7 @@ int main(int argc, char **argv){
     // valeurs par defaut
     algo = 0;
     tache.fichierImage = "gravier.tif";
-    tache.racineNombreBlocs = 8; //3
+    tache.racineNombreBlocs = 10; //3
     tache.recouvrement = 3; //20
     tache.largeurSortie = 256; //600
     tache.hauteurSortie = 256; //600
@@ -74,7 +75,7 @@ int main(int argc, char **argv){
             tache.raccordeur = new RaccordeurRecursifNaif();
             break;
         case 4:
-          
+            tache.raccordeur = new RaccordeurRecursif();
             break;
         case 5:
             

@@ -1,5 +1,4 @@
 #include "raccordeur_recursif_naif.h"
-#include "iostream"
 
 int RaccordeurRecursifNaif::calculerRaccord(MatInt2* distances, int* coupe)
 {
