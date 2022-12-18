@@ -42,6 +42,8 @@ int main(int argc, char **argv){
         fprintf(stderr, " 3 : raccord avec coupe optimale (recursif naif)\n");
         fprintf(stderr, " 4 : raccord avec coupe optimale (recursif utilisable)\n");
         fprintf(stderr, " 5 : raccord avec coupe optimale (iteratif)\n");
+        fprintf(stderr, " 6 : raccord avec coupe optimale (recursif naif), new array every call recursive\n");
+        fprintf(stderr, " 7 : raccord avec coupe optimale (iteratif), cache best block\n");
         exit(0);
     }
     
@@ -73,7 +75,7 @@ int main(int argc, char **argv){
             tache.raccordeur = new RaccordeurSimple();
             break;
         case 3:
-            tache.raccordeur = new RaccordeurRecursifNaif();
+            tache.raccordeur = new RaccordeurRecursifNaif(false);
             break;
         case 4:
             tache.raccordeur = new RaccordeurRecursif();
@@ -81,7 +83,10 @@ int main(int argc, char **argv){
         case 5:
             tache.raccordeur = new RaccordeurIteratif();
             break;
-        case 6: // case cache cout between 2 blocks
+        case 6:
+            tache.raccordeur = new RaccordeurRecursifNaif(true);
+            break;
+        case 7: // case cache cout between 2 blocks
             tache.cacheBestBlock = true;
             tache.raccordeur = new RaccordeurIteratif();
             break;

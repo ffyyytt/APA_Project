@@ -27,6 +27,12 @@ class RaccordeurRecursifNaif: public Raccordeur {
   virtual ~RaccordeurRecursifNaif(); // destructeur
   private:
     /*!
+     * boolean to use save cut path
+     * if true call _calculerRaccordMemPath instead of _calculerRaccord
+     * read _calculerRaccord and _calculerRaccordMemPath for more information
+    */
+    bool _memoryCut = false;
+    /*!
      * Do recursive to find the minimun distance path.
      * Start from (x, y) parameters and end when recursive y = 0.
      * When found min, do travel again to assign cut.
@@ -43,6 +49,8 @@ class RaccordeurRecursifNaif: public Raccordeur {
      * But memory: T(n*2^n) (n = height)
     */
     int _calculerRaccordMemPath(MatInt2* distances, int* coupe, int x, int y);
+    public:
+      RaccordeurRecursifNaif(bool memoryCut);
 };
 
 #endif	/* _RACCORDEUR_RECURSIF_NAIF_H */
