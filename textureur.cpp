@@ -405,20 +405,20 @@ int Textureur::bestBlockIndex(Raccordeur* raccordeur, int vg, int vh) {
             case 0: {
                 if (cacheBestBlock)
                 {
-                    if (coutHBs->get(vh, i) != -1)
+                    if (coutHBs->get(vh, i) != -1) // if cached
                         coutHB = coutHBs->get(vh, i);
-                    else
+                    else // calculate and save
                     {
-                        coutHB = Coupe_HB(raccordeur, &table_blocs[vh], &table_blocs[i], coupehb);
-                        coutHBs->set(vh, i, coutHB);
+                        coutHB = Coupe_HB(raccordeur, &table_blocs[vh], &table_blocs[i], coupehb); // calculate
+                        coutHBs->set(vh, i, coutHB); // save
                     }
                     
-                    if (coutGDs->get(vg, i) != -1)
+                    if (coutGDs->get(vg, i) != -1) // if cached
                         coutGD = coutGDs->get(vg, i);
-                    else
+                    else // calculate and save
                     {
-                        coutGD = Coupe_GD(raccordeur, &table_blocs[vg], &table_blocs[i], coupehb);
-                        coutGDs->set(vg, i, coutGD);
+                        coutGD = Coupe_GD(raccordeur, &table_blocs[vg], &table_blocs[i], coupehb); // calculate
+                        coutGDs->set(vg, i, coutGD); // save
                     }
 
                 }
@@ -434,12 +434,12 @@ int Textureur::bestBlockIndex(Raccordeur* raccordeur, int vg, int vh) {
             {
                 if (cacheBestBlock)
                 {
-                    if (coutGDs->get(vg, i) != -1)
+                    if (coutGDs->get(vg, i) != -1) // if cached
                         cout = coutGDs->get(vg, i);
-                    else
+                    else // calculate and save
                     {
-                        cout = Coupe_GD(raccordeur, &table_blocs[vg], &table_blocs[i], coupegd);
-                        coutGDs->set(vg, i, cout);
+                        cout = Coupe_GD(raccordeur, &table_blocs[vg], &table_blocs[i], coupegd); // calculate
+                        coutGDs->set(vg, i, cout); //save
                     }
                         
                 }
@@ -451,12 +451,12 @@ int Textureur::bestBlockIndex(Raccordeur* raccordeur, int vg, int vh) {
             {
                 if (cacheBestBlock)
                 {
-                    if (coutHBs->get(vh, i) != -1)
+                    if (coutHBs->get(vh, i) != -1) // if cached
                         cout = coutHBs->get(vh, i);
-                    else
+                    else // calculate and save
                     {
-                        cout = Coupe_HB(raccordeur, &table_blocs[vh], &table_blocs[i], coupegd);
-                        coutHBs->set(vh, i, cout);
+                        cout = Coupe_HB(raccordeur, &table_blocs[vh], &table_blocs[i], coupegd); // calculate
+                        coutHBs->set(vh, i, cout); // save
                     }
                         
                 }

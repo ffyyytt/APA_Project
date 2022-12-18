@@ -25,7 +25,8 @@ Image_4b::~Image_4b(){
 bool Image_4b::init(const char* filename){
   int w,h;
   TIFF* tif = TIFFOpen(filename,"r");
-  if(tif){
+  if(tif) // fix bug
+  {
     // fprintf(stderr,"TIFFOpen donne %x\n",(unsigned int)tif);
     TIFFGetField(tif,TIFFTAG_IMAGEWIDTH,&w);
     TIFFGetField(tif,TIFFTAG_IMAGELENGTH,&h);

@@ -45,16 +45,66 @@ public:
   int getLengthPerm();
   void setIndices(int *);
 
+  /*!
+   * Using heap to generate Permute.
+   * Base on "The following permutation is formed from the previous permutation by permuting 2 elements, the other elements remain in place".
+   * If k odd, swap(first, last). Else swap(c, last) (c is counter). Do until c = n
+   * For example: (0, 1, 2)
+   * k = 3
+   *    c = 0, k = 3
+   *        c = 0, k = 2
+   *            (0, 1, 2)
+   *        c = 1, k = 2
+   *            (1, 0, 2)
+   *    c = 1, k = 3
+   *        c = 0, k = 2
+   *            (2, 0 , 1)
+   *        c = 1, k = 2
+   *            (0, 2, 1)
+   *    c = 2, k = 3
+   *        c = 0, k = 2
+   *            (1, 2, 0)
+   *        c = 1, k = 2
+   *            (2, 1, 0)
+  */
   void genPermutHeapRecursive(int k, int &permutationIndex);
+
+  /*!
+   * Same with genPermutHeapRecursive but this time not Recursive
+   * So we need a counter array to save c
+  */
   void genPermutHeap(int k, int &permutationIndex);
+
+  /*!
+   * Generate Permutation with Dictionary order
+   * While can Find k (last k): A(K) < A(K+1):
+   *    Find l (last l): A(K) < A(L)
+   *    swap(A(K), A(L));
+   *    reverse (A(K+1), A(K+2), ..., A(N))
+   * For example: (0, 1, 2)
+   * k = 1
+   * l = 2 -> (0, 2, 1) -> (0, 2, 1)
+   * k = 0
+   * l = 2 (last l) -> (1, 2, 0) -> (1, 0, 2)
+   * k = 1
+   * l = 2 -> (1, 2, 0) -> (1, 2, 0)
+   * k = 0
+   * l = 1 -> (2, 1, 0) -> (2, 0, 1)
+   * k = 1
+   * l = 2 -> (2, 1, 0) -> (2, 1, 0)
+  */
   void genPermutDictionary();
   
+  /*!
+   * Assigin _indices to _perm
+   * From index permutationIndex*len(_indices) -> (permutationIndex+1)*len(_indices)
+  */
   void assignPermutation(int permutationIndex);
   static int factorial(int n);
 
  private :
-  int _max;
-  int _lengthPerm;
+  int _max; // max indice
+  int _lengthPerm; // To store length of _perm
   int* _perm; // tableau de la permutation.
   int * _indices; // tableau des indices � permuter
   int _i_perm;  // indice d'avancement dans la permutation.

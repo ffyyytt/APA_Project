@@ -81,7 +81,7 @@ int main(int argc, char **argv){
         case 5:
             tache.raccordeur = new RaccordeurIteratif();
             break;
-        case 6:
+        case 6: // case cache cout between 2 blocks
             tache.cacheBestBlock = true;
             tache.raccordeur = new RaccordeurIteratif();
             break;

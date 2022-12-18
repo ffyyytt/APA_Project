@@ -11,6 +11,7 @@
  * (x,y) -> [(x-1,y-1); (x, y-1); (x+1,y-1)].
  * Do with Recursif and cached memory (to store minimum distances from that point).
  * With cached memory every point excute one. So it belong to O(h*w) (h = height, w = width of intersection).
+ * But with Recursif every time call function add return point to stack -> can be stack overflow.
  * calculerRaccord(MatInt2* distances, int* coupe): Find the minimun cut (coupe) and return its cost.
 */
 class RaccordeurRecursif: public Raccordeur {

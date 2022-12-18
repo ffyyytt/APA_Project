@@ -2,17 +2,18 @@
 
 int RaccordeurRecursifNaif::calculerRaccord(MatInt2* distances, int* coupe)
 {
-    int *coupeTemp = (int*) malloc(distances->nLignes()*sizeof(int));
-    int coutTemp = 0, cout = std::numeric_limits<int>::max();;
+    int *coupeTemp = (int*) malloc(distances->nLignes()*sizeof(int)); //to save cut for every start(x, distances->nLignes()-1)
+    int coutTemp = 0, cout = std::numeric_limits<int>::max(); //to save cout for every start(x, distances->nLignes()-1)
 
+    //
     for (int x = 0; x < distances->nColonnes(); x++)
     {
-        coutTemp = _calculerRaccord(distances, coupeTemp, x, distances->nLignes()-1);
-        if (coutTemp < cout)
+        coutTemp = _calculerRaccord(distances, coupeTemp, x, distances->nLignes()-1); // cal recursive
+        if (coutTemp < cout) // if coutTemp < cout
         {
-            std::copy(coupeTemp, coupeTemp+distances->nLignes(), coupe);
-            coupe[distances->nLignes()-1] = x;
-            cout = coutTemp;
+            std::copy(coupeTemp, coupeTemp+distances->nLignes(), coupe); // copy cutTemp to cut
+            coupe[distances->nLignes()-1] = x; //set last point
+            cout = coutTemp; //set cout
         }
     }
 
@@ -31,59 +32,59 @@ int RaccordeurRecursifNaif::calculerRaccord(MatInt2* distances, int* coupe)
 
 int RaccordeurRecursifNaif::_calculerRaccord(MatInt2* distances, int* coupe, int x, int y)
 {
-    if (x < 0 || x >= distances->nColonnes()) return std::numeric_limits<int>::max();;
-    if (y == 0) return distances->get(y, x);
+    if (x < 0 || x >= distances->nColonnes()) return std::numeric_limits<int>::max(); // if reached horizontal edge
+    if (y == 0) return distances->get(y, x); // if reached first line
     else
     {
-        int p1 = _calculerRaccord(distances, coupe, x-1, y-1);
-        int p2 = _calculerRaccord(distances, coupe, x, y-1);
-        int p3 = _calculerRaccord(distances, coupe, x+1, y-1);
-        int pMin = std::min(std::min(p1, p2), p3);
+        int p1 = _calculerRaccord(distances, coupe, x-1, y-1); // calculate min cout end at (x-1, y-1)
+        int p2 = _calculerRaccord(distances, coupe, x, y-1); // calculate min cout end at (x, y-1)
+        int p3 = _calculerRaccord(distances, coupe, x+1, y-1); //calculate min cout end at (x+1, y-1)
+        int pMin = std::min(std::min(p1, p2), p3);  // get min
         if (p1 == pMin) 
         {
-            _calculerRaccord(distances, coupe, x-1, y-1);
-            coupe[y-1] = x-1;
+            _calculerRaccord(distances, coupe, x-1, y-1); // travel again to get cut path
+            coupe[y-1] = x-1; // set last point
         }
         else if (p2 == pMin) 
         {
-            _calculerRaccord(distances, coupe, x, y-1);
-            coupe[y-1] = x;
+            _calculerRaccord(distances, coupe, x, y-1); // travel again to get cut path
+            coupe[y-1] = x; // set last point
         }
         else 
         {
-            _calculerRaccord(distances, coupe, x+1, y-1);
-            coupe[y-1] = x+1;
+            _calculerRaccord(distances, coupe, x+1, y-1); // travel again to get cut path
+            coupe[y-1] = x+1; // set last point
         }
 
-        return distances->get(y, x) + pMin;
+        return distances->get(y, x) + pMin; // return cout at this point
     }
 }
 
 int RaccordeurRecursifNaif::_calculerRaccordMemPath(MatInt2* distances, int* coupe, int x, int y)
 {
-    if (x < 0 || x >= distances->nColonnes()) return std::numeric_limits<int>::max();;
-    if (y == 0) return distances->get(y, x);
+    if (x < 0 || x >= distances->nColonnes()) return std::numeric_limits<int>::max(); // if reached horizontal edge
+    if (y == 0) return distances->get(y, x); // if reached first line
     else
     {
-        int* couptTemp = (int*) malloc(distances->nLignes()*sizeof(int));
-        int pMin = _calculerRaccordMemPath(distances, coupe, x-1, y-1);
-        coupe[y-1] = x-1;
-        int p = _calculerRaccordMemPath(distances, couptTemp, x, y-1);
-        if (p < pMin)
+        int* coupeTemp = (int*) malloc(distances->nLignes()*sizeof(int)); // create new cut line
+        int pMin = _calculerRaccordMemPath(distances, coupe, x-1, y-1); // calculate min cout end at (x-1, y-1) and assign coupe
+        coupe[y-1] = x-1; // set last point
+        int p = _calculerRaccordMemPath(distances, coupeTemp, x, y-1); // calculate min cout end at (x, y-1) and assign to couptTemp
+        if (p < pMin) // if cout(x, y-1) < cout min
         {
             pMin = p;
-            std::copy(couptTemp, couptTemp+y-2, coupe);
+            std::copy(coupeTemp, coupeTemp+y-2, coupe); // copy cut line
             coupe[y-1] = x;
         }
         std::cout << x << " " << y << std::endl;
-        p = _calculerRaccord(distances, couptTemp, x+1, y-1);
-        if (p < pMin)
+        p = _calculerRaccord(distances, coupeTemp, x+1, y-1);
+        if (p < pMin) // if cout(x+1, y-1) < cout min
         {
             pMin = p;
-            std::copy(couptTemp, couptTemp+y-2, coupe);
+            std::copy(coupeTemp, coupeTemp+y-2, coupe); // copy cut line
             coupe[y-1] = x+1;
         }
-        return distances->get(y, x) + pMin;
+        return distances->get(y, x) + pMin; // return cout at this point
     }
 }
 
