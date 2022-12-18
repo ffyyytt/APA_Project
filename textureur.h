@@ -105,6 +105,13 @@ private:
   bool cacheBestBlock;
   MatInt2* coutHBs;
   MatInt2* coutGDs;
+
+  /*!
+   * visualization
+   * if set this true visualise image and wait for user
+   * else just run the algorithm (for time testing)
+  */
+  bool visualization;
   
   // placer avec bord
   void placer_avec_bord(int b,int c,int l);

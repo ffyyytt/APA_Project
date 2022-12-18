@@ -26,6 +26,7 @@ int main(int argc, char **argv){
     tache.recouvrement = 20; //20
     tache.largeurSortie = 600; //600
     tache.hauteurSortie = 600; //600
+    tache.visualization = true;
     
     if (!strcmp(argv[argc-1], "--help")) {
         fprintf(stderr, "Accepte jusqu'a 6 parametres :\n");
@@ -35,6 +36,7 @@ int main(int argc, char **argv){
         fprintf(stderr, " taille de la zone de recouvrement, defaut : %d\n", tache.recouvrement);
         fprintf(stderr, " largeur de l'image de sortie, defaut : %d\n", tache.largeurSortie);
         fprintf(stderr, " hauteur de l'image de sortie, defaut : %d\n", tache.hauteurSortie);
+        fprintf(stderr, " Visualise image, defaut : %d\n", tache.visualization);
         fprintf(stderr, "\nAlgorithmes :\n");
         fprintf(stderr, " 0 : bloc au hasard, raccord simple\n");
         fprintf(stderr, " 1 : bloc au hasard avec le permuteur, raccord simple\n");
@@ -54,7 +56,8 @@ int main(int argc, char **argv){
     if (argc>=5) tache.recouvrement = atoi(argv[4]);
     if (argc>=6) tache.largeurSortie = atoi(argv[5]);
     if (argc>=7) tache.hauteurSortie = atoi(argv[6]);
-    if (argc >7) fprintf(stderr, "on ignore les arguments Unix au dela du 6eme\n");
+    if (argc>=8) tache.visualization = atoi(argv[7]);
+    if (argc >8) fprintf(stderr, "on ignore les arguments Unix au dela du 6eme\n");
     
     tache.choisirMeilleurBloc = true;
     tache.utiliserPermuteur = false;

@@ -66,6 +66,7 @@ void Textureur::init(DescripteurTache& tache) {
     utiliserPermuteur = tache.utiliserPermuteur;
     choisirMeilleurBloc = tache.choisirMeilleurBloc;
     cacheBestBlock = tache.cacheBestBlock;
+    visualization = tache.visualization;
 	
   // parametres dependants
   nb_bloc=bloc_fac*bloc_fac;  // nombre total de blocs
@@ -84,15 +85,19 @@ void Textureur::init(DescripteurTache& tache) {
   fprintf(stderr,"tex_w=%d,tex_h=%d\n",tex_w,tex_h);
   if(tex_w<=0) exit(-1);
 
-  // Affichage de l'image de texture
-  X11Display* tex_screen = new X11Display(tex_w,tex_h,"Image texture");
-  fprintf(stderr,"point20\n");
-  tex_screen->DisplayImage(im_texture->GetLinePtr(0),tex_w,tex_h);
-  // tex_screen->Flush();  // peut provoquer SEGFAULT -:-()
-  fprintf(stderr,"point21 (on doit voir l'image %s)\n",fichier);
+  if (visualization)
+  {
+    // Affichage de l'image de texture
+    X11Display* tex_screen = new X11Display(tex_w,tex_h,"Image texture");
+    fprintf(stderr,"point20\n");
+    tex_screen->DisplayImage(im_texture->GetLinePtr(0),tex_w,tex_h);
+    // tex_screen->Flush();  // peut provoquer SEGFAULT -:-()
+    fprintf(stderr,"point21 (on doit voir l'image %s)\n",fichier);
 
-  printf("cliquer dans l'image  pour continuer\n");
-  tex_screen->Click();
+    printf("cliquer dans l'image  pour continuer\n");
+    tex_screen->Click();
+  }
+  
 
   fprintf(stderr,"point22\n");
   	
@@ -152,7 +157,11 @@ void Textureur::init(DescripteurTache& tache) {
   // Gestion de l'image resultat
   im_res = new Image_4b(res_w,res_h);
   // fenetre d'affichage pour le resultat
-  screen = new X11Display(res_w,res_h,"Image resultat");
+  if (visualization)
+  {
+    screen = new X11Display(res_w,res_h,"Image resultat");
+  }
+  
 
   if (cacheBestBlock)
   {
@@ -506,11 +515,15 @@ void Textureur::doAlgo(Raccordeur* raccordeur) {
             }
         }
     }
-    screen->DisplayImage(im_res->GetLinePtr(0), res_w, res_h);
-    printf("c'est tout - cliquer dans l'image resultat pour finir\n");
-    screen->Click();
-    screen->DisplayImage(im_res->GetLinePtr(0), res_w, res_h);
-    printf("c'est tout - cliquer dans l'image resultat pour finir\n");
-    screen->Click();
+
+    if (visualization)
+    {
+        screen->DisplayImage(im_res->GetLinePtr(0), res_w, res_h);
+        printf("c'est tout - cliquer dans l'image resultat pour finir\n");
+        screen->Click();
+        screen->DisplayImage(im_res->GetLinePtr(0), res_w, res_h);
+        printf("c'est tout - cliquer dans l'image resultat pour finir\n");
+        screen->Click();
+    }
 }
 

@@ -39,6 +39,13 @@ public:
   bool cacheBestBlock;
 
   /*!
+   * visualization
+   * if set this true visualise image and wait for user
+   * else just run the algorithm (for time testing)
+  */
+  bool visualization;
+
+  /*!
    * Racine carre du nombre de blocs 
    */
   int racineNombreBlocs;
