@@ -73,6 +73,7 @@ void Permuteur::genPermutHeapRecursive(int k, int &permutationIndex)
 
 void Permuteur::genPermutHeap(int k, int &permutationIndex)
 {
+    assignPermutation(permutationIndex++);
     int *counter = (int*) malloc(_max*sizeof(int)); // Without recursive so we need to save counter
     memset(counter, 0, _max*sizeof(int)); // set counter to 0
     int i=0;
