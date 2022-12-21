@@ -5,6 +5,7 @@
 Run command:
 
 ```
+cd source
 make testpermut
 ./testpermut
 ```
