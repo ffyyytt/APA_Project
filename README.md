@@ -58,3 +58,32 @@ N = 11, method: 0, lengthPerm: 439084800, time taken: 2.69s
 N = 11, method: 1, lengthPerm: 439084800, time taken: 2.57s
 N = 11, method: 2, lengthPerm: 439084800, time taken: 2.45s
 ```
+# TP
+
+```
+cd source
+make tp
+./tp --help
+```
+Output:
+```
+Accepte jusqu'a 6 parametres :
+ fichier image, defaut : gravier.tif
+ numero de l'algorithme, defaut : 0
+ racine du nombre de blocs, defaut : 3
+ taille de la zone de recouvrement, defaut : 20
+ largeur de l'image de sortie, defaut : 600
+ hauteur de l'image de sortie, defaut : 600
+ cache best block, defaut : 0
+ cache best cut, defaut : 0
+ visualise image, defaut : 1
+
+Algorithmes :
+ 0 : bloc au hasard, raccord simple
+ 1 : bloc au hasard avec le permuteur, raccord simple
+ 2 : meilleur bloc, raccord simple
+ 3 : raccord avec coupe optimale (recursif naif)
+ 4 : raccord avec coupe optimale (recursif utilisable)
+ 5 : raccord avec coupe optimale (iteratif)
+ 6 : raccord avec coupe optimale (recursif naif), new cut array every call recursive
+```
